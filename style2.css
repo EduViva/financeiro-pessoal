@@ -1,0 +1,44 @@
+*{
+    --primary-color: #ee6e73;
+}
+
+main{
+    padding-top: 32px;
+}
+
+.row{
+    margin-bottom: 0 !important;
+}
+
+.container-fluid{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.container-header{
+    background-color: var(--primary-color);
+    padding: 5px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 900;
+}
+
+.container-body{
+    padding: 1rem !important;
+    border: 1px solid gray;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top: none;
+    margin-bottom: 32px;
+}
+
+.container-main{
+    padding: 0 !important;
+}
+
+.container-date .input-field{
+    margin-bottom: 0 !important;
+}

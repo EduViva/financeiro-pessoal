@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@media(min-width: 993px){
+    .brand-logo{
+        margin-left: 25px;
+    }
+}
+
+body {
+    background-color: #fffafa;
+}
+
+.sidenav .user-nav-list{
+    background-color: #dcdcdc;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+.sidenav li:hover{
+    background-color: #dcdcdc;
+}
+
+.nav-wrapper .user-nav-list{
+    background: rgba(102, 102, 102,.5);
+}
