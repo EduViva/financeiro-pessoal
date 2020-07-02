@@ -71,33 +71,16 @@
 
                     <!--Escolha dos meses mobile-->
                     
-                    <div class="input-field col s8">
-                        <select>
+                    <div class="input-field mont_select col s8">
+                        <select id="month_select">
                             <option value="" disabled selected>Escolha um mês</option>
-                            <option value="1">Janeiro</option>
-                            <option value="1">Fevereiro</option>
-                            <option value="1">Março</option>
-                            <option value="1">Abril</option>
-                            <option value="1">Maio</option>
-                            <option value="1">Junho</option>
-                            <option value="1">Julho</option>
-                            <option value="1">Agosto</option>
-                            <option value="1">Setembro</option>
-                            <option value="1">Outubro</option>
-                            <option value="1">Novembro</option>
-                            <option value="1">Dezembro</option>
                         </select>
                         <label>Mês</label>
                     </div>
 
-                    <div class="input-field col s4">
-                        <select>
+                    <div class="input-field year_select col s4">
+                        <select id="year_select">
                             <option value="" disabled selected>Escolha um ano</option>
-                            <option value="1">2020</option>
-                            <option value="1">2021</option>
-                            <option value="1">2022</option>
-                            <option value="1">2023</option>
-                            <option value="1">2024</option>
                         </select>
                         <label>Ano</label>
                     </div>
@@ -109,7 +92,8 @@
 
         <div class="container-fluid">
             <div class="row row-main">
-                    
+                
+                <!--Container dos lançamentos-->
                 <div class="container-main container-lancamentos col s12 l8 ">
                     <ul class="collapsible expandable collapse1">    
                         <li class="collapsible-list">
@@ -152,6 +136,7 @@
                     </ul>
                 </div>
 
+                <!--Container das Movimentações-->
                 <div class="container-main container-movimentacoes col s12 l3 offset-l1">
                     <ul class="collapsible expandable collapse2">
                         <li class="collapsible-list">
@@ -165,29 +150,35 @@
                             <div class="container-body collapsible-body z-depth-1">
                                 
                             <ul class="collection collection-movs">
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="Seus Rendimentos">
+                                <li class="collection-item">
                                     <h6 class="green-text text-darken-1">Renda</h6>
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Seus Rendimentos">help</i>
+                                    <span class="right" id="mov_renda"></span>
                                 </li>
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>precisa</b> gastar <br> 40% da renda">
+                                <li class="collection-item">
                                     <h6>Gastos essenciais</h6>
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>precisa</b> gastar <br> 40% da renda">help</i>
+                                    <span class="right" id="mov_gEssenc"></span>
                                 </li>
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>não precisa</b> gastar <br> 10% da renda">
+                                <li class="collection-item">
                                     <h6>Gastos não essenciais</h6>  
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>não precisa</b> gastar <br> 10% da renda">help</i>
+                                    <span class="right" id="mov_gnEssenc"></span>
                                 </li>
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>pode</b> gastar <br> 10% da renda">
+                                <li class="collection-item">
                                     <h6>Torrar</h6>  
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>pode</b> gastar <br> 10% da renda">help</i>
+                                    <span class="right" id="mov_torrar"></span>
                                 </li>
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você deve investir para o futuro <br> 30% da renda">
+                                <li class="collection-item">
                                     <h6>Investimento</h6>
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve investir para o futuro <br> 30% da renda">help</i>
+                                    <span class="right" id="mov_invest"></span>
                                 </li>
-                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você deve guardar <br> 10% da renda">
+                                <li class="collection-item">
                                     <h6>Caixa</h6>
-                                    <span class="right">R$2,50</span>
+                                    <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve guardar <br> 10% da renda">help</i>
+                                    <span class="right" id="mov_caixa"></span>
                                 </li>
                                 
                                 </ul>
@@ -200,5 +191,6 @@
 
             </div>
         </div>
+
     </main>
 </body>
