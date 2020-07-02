@@ -1,5 +1,12 @@
+@media(min-width: 993px){
+    .chevron-header{
+        display: none !important;
+    }
+}
+
 *{
     --primary-color: #ee6e73;
+    --success: #76ff03;
 }
 
 main{
@@ -24,6 +31,7 @@ main{
     text-align: center;
     font-size: 1.5em;
     font-weight: 900;
+    display: block;
 }
 
 .container-body{
@@ -33,6 +41,7 @@ main{
     border-bottom-right-radius: 3px;
     border-top: none;
     margin-bottom: 32px;
+    background-color: white;
 }
 
 .container-main{
@@ -41,4 +50,20 @@ main{
 
 .container-date .input-field{
     margin-bottom: 0 !important;
+}
+
+.container-header i{
+    position: absolute;
+    right: 10px;
+    font-size: 22pt;
+}
+
+.collapsible-header:focus{
+    background-color: var(--primary-color) !important;
+}
+
+.collection-movs h6{
+    display: contents !important;
+    font-weight: bolder;
+    color: rgba(0,0,0,0.78);
 }

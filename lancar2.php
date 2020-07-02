@@ -24,13 +24,13 @@
         <div class="container-fluid container-date">
 
             <div class="row">
-                <div class="container-header">
+                <div class="container-header z-depth-1">
                     Escolha uma data
                 </div>
             </div>
 
             <div class="row">
-                <div class="container-body col s12">
+                <div class="container-body col s12 z-depth-1">
 
                     <!--
                     <div class="ls-tabs-btn col-md-10 col-md-offset-1 visible-md-block" id="tabs">
@@ -110,28 +110,92 @@
         <div class="container-fluid">
             <div class="row row-main">
                     
-                <div class="container-main container-lancamentos col s12 m7">
-                    <div class="container-header">
-                        Lançamentos
-                    </div>
+                <div class="container-main container-lancamentos col s12 l8 ">
+                    <ul class="collapsible expandable collapse1">    
+                        <li class="collapsible-list">
+                            
+                            <div class="container-header collapsible-header z-depth-1">
+                                Lançamentos
+                                <i class="material-icons chevron-header">expand_more</i>
+                            </div>
 
-                    <!--Body lançamentos-->
-                    <div class="container-body">
-                        addslashes
-                    </div>
+                            <!--Body lançamentos-->
+                            <div class="container-body collapsible-body z-depth-1">
+                                
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="input-field col s5 m3">
+                                            <input type="date" id="input-date">
+                                            <label for="input-date">Data</label>
+                                        </div>
+                                        <div class="input-field col s6 m3">
+                                            <input type="text" id="input-cat">
+                                            <label for="input-cat">Categoria</label>
+                                        </div>
+                                        <div class="input-field col s5 m3">
+                                            <input type="text" id="input-desc">
+                                            <label for="input-desc">Descrição</label>
+                                        </div>
+                                        <div class="input-field col s5 m2">
+                                            <input type="text" id="input-val">
+                                            <label for="input-val">Valor</label>
+                                        </div>
+                                        <div class="input-field col s1 m1">
+                                            <a><i class="material-icons">add_circle</i></a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="container-main container-movimentacoes col s12 m4 offset-m1">
+                <div class="container-main container-movimentacoes col s12 l3 offset-l1">
+                    <ul class="collapsible expandable collapse2">
+                        <li class="collapsible-list">
 
-                    <div class="container-header">
-                        Movimentações
-                    </div>
+                            <div class="container-header collapsible-header z-depth-1">
+                                Movimentações
+                                <i class="material-icons chevron-header">expand_more</i>
+                            </div>
 
-                    <!--Body movimentações-->
-                    <div class="container-body">
-                        asdasdasd  
-                    </div>
-                    
+                            <!--Body movimentações-->
+                            <div class="container-body collapsible-body z-depth-1">
+                                
+                            <ul class="collection collection-movs">
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="Seus Rendimentos">
+                                    <h6 class="green-text text-darken-1">Renda</h6>
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>precisa</b> gastar <br> 40% da renda">
+                                    <h6>Gastos essenciais</h6>
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>não precisa</b> gastar <br> 10% da renda">
+                                    <h6>Gastos não essenciais</h6>  
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você <b>pode</b> gastar <br> 10% da renda">
+                                    <h6>Torrar</h6>  
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você deve investir para o futuro <br> 30% da renda">
+                                    <h6>Investimento</h6>
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                <li class="collection-item tooltipped" data-position="top" data-tooltip="O que você deve guardar <br> 10% da renda">
+                                    <h6>Caixa</h6>
+                                    <span class="right">R$2,50</span>
+                                </li>
+                                
+                                </ul>
+
+                            </div>
+
+                        </li>
+                    </ul>
                 </div>
 
             </div>
