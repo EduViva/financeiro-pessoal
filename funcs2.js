@@ -3,80 +3,44 @@ $(document).ready(function(){
     $('select').formSelect();
     $('.tooltipped').tooltip();
 
-    //Populating and choosing atual month selection
-    let currentMonth = (new Date).getMonth();
     let monthSelection = $('#month_select');
+    let yearSelection = $('#year_select');
 
-    let months = {
-        0 : "Janeiro",
-        1 : "Fevereiro",
-        2 : "Março",
-        3 : "Abril",
-        4 : "Maio",
-        5 : "Junho",
-        6 : "Julho",
-        7 : "Agosto",
-        8 : "Setembro",
-        9 : "Outubro",
-        10 : "Novembro",
-        11 : "Dezembro"
-    }
-
+    populate(monthSelection,yearSelection);
+    
+    //Month selection
     // setup listener for custom event to re-initialize on change
-    monthSelection.on('contentChanged', function() {
+    $('#month_select').on('contentChanged', function() {
         $(this).formSelect();
     });
-
-    for(var i in months){
-        var $newMonth = $("<option>").attr("value",i).text(months[i]);
-        if(months[i] == months[currentMonth]) {$newMonth.attr("selected",true)};
-        monthSelection.append($newMonth);
-    }
-
     monthSelection.trigger('contentChanged');
     //End Month selection
 
-
-    //Populating and choosing atual year selection
-    let yearSelection = $('#year_select');
-    let currentYear = (new Date).getFullYear();
-    let years = [currentYear -2, currentYear -1, currentYear, currentYear +1, currentYear +2];
-    
+    //Year selection
     // setup listener for custom event to re-initialize on change
     $('#year_select').on('contentChanged', function() {
         $(this).formSelect();
     });
-
-    $.each(years , function (index, value){  
-        var $newOpt = $("<option>").attr("value",value).text(value);
-        if(value == currentYear){ $newOpt.attr("selected",true)}
-        yearSelection.append($newOpt);
-    });
     yearSelection.trigger('contentChanged');
     //End year selection
 
-    var instMonth = M.FormSelect.getInstance(monthSelection);
-    var instYear = M.FormSelect.getInstance(yearSelection);
-    change(instMonth.getSelectedValues(),instYear.getSelectedValues());
+    //getting date values on initialize
+    change($('.month_field input').val(),$('.year_field input').val());
 
     monthSelection.on('change', function(){
-        let val_month = instMonth.getSelectedValues();
-        let val_year = instYear.getSelectedValues();
+        let val_month = $('.month_field input').val();
+        let val_year = $('.year_field input').val();
+        
         change(val_month,val_year);
     });
 
     yearSelection.on('change', function(){
-        let val_month = instMonth.getSelectedValues();
-        let val_year = instYear.getSelectedValues();
+        let val_month = $('.month_field input').val();
+        let val_year = $('.year_field input').val();
+
         change(val_month,val_year);
     });
 
-    /*
-    let a = $('.year_select div ul').children()
-    for(i of a){
-        console.log(i)
-    }
-    */ 
 
 
     //initializing and openning acordeons
@@ -114,8 +78,64 @@ $(document).ready(function(){
         inst_col2.open(0);
     }
 
+    $('#save').on('click', save);
+    
+
+
 });
 
 function change(month, year){
     console.log(month,year);
+}
+
+function populate(monthSelection,yearSelection){
+
+    //Populating and choosing atual month selection
+
+    let currentMonth = (new Date).getMonth();
+    
+    let months = {
+        0 : "Janeiro",
+        1 : "Fevereiro",
+        2 : "Março",
+        3 : "Abril",
+        4 : "Maio",
+        5 : "Junho",
+        6 : "Julho",
+        7 : "Agosto",
+        8 : "Setembro",
+        9 : "Outubro",
+        10 : "Novembro",
+        11 : "Dezembro"
+    }
+
+    for(var i in months){
+        var $newMonth = $("<option>").attr("value",i).text(months[i]);
+        if(months[i] == months[currentMonth]) {$newMonth.attr("selected",true)};
+        monthSelection.append($newMonth);
+    }
+
+    //Populating and choosing atual year selection
+    let currentYear = (new Date).getFullYear();
+    let years = [currentYear -2, currentYear -1, currentYear, currentYear +1, currentYear +2];
+
+    $.each(years , function (index, value){  
+        var $newOpt = $("<option>").attr("value",value).text(value);
+        if(value == currentYear){ $newOpt.attr("selected",true)}
+        yearSelection.append($newOpt);
+    });
+
+}
+
+function save(){
+    let date = $('#input-date').val().split('-').reverse();
+    let categoria = $('#field-categoria input').val();
+    let descricao = $('#input-desc').val();
+    let valor = $('#input-val').val();
+
+    console.log(date); 
+    console.log(categoria); 
+    console.log(descricao); 
+    console.log(valor); 
+    M.toast({html: 'Tá Lançado meu querido!', classes: 'rounded'});
 }

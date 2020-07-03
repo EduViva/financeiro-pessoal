@@ -2,11 +2,17 @@
     .chevron-header{
         display: none !important;
     }
+    #add{
+        line-height: 1.5;
+    }
 }
 
 *{
     --primary-color: #ee6e73;
     --success: #76ff03;
+    --darken: #424242;
+    --gray: #a7a7a7;
+    --bg_light: #efefea;
 }
 
 main{
@@ -65,5 +71,19 @@ main{
 .collection-movs h6{
     display: contents !important;
     font-weight: bolder;
-    color: rgba(0,0,0,0.78);
+    color: var(--darken);
+}
+
+#row_inputs{
+    background-color: var(--bg_light);
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    border-bottom: 1px solid var(--gray);
+    -webkit-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
+}
+
+.rounded{
+    background-color: blue;
 }

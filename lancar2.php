@@ -71,14 +71,14 @@
 
                     <!--Escolha dos meses mobile-->
                     
-                    <div class="input-field mont_select col s8">
+                    <div class="input-field month_field col s8">
                         <select id="month_select">
                             <option value="" disabled selected>Escolha um mês</option>
                         </select>
                         <label>Mês</label>
                     </div>
 
-                    <div class="input-field year_select col s4">
+                    <div class="input-field year_field col s4">
                         <select id="year_select">
                             <option value="" disabled selected>Escolha um ano</option>
                         </select>
@@ -106,28 +106,52 @@
                             <!--Body lançamentos-->
                             <div class="container-body collapsible-body z-depth-1">
                                 
-                                <div class="row">
+                                <div class="row" id="row_inputs">
                                     <div class="col s12">
                                         <div class="input-field col s5 m3">
                                             <input type="date" id="input-date">
                                             <label for="input-date">Data</label>
                                         </div>
-                                        <div class="input-field col s6 m3">
-                                            <input type="text" id="input-cat">
+                                        <div class="input-field col s6 m3" id="field-categoria">
+                                            <select id="input-cat">
+                                                <option value="" disabled selected>Escolha uma</option>
+                                                <option value="renda">Renda</option>
+                                                <option value="essenciais">Gastos Essenciais</option>
+                                                <option value="nao_essenciais">Gastos não Essenciais</option>
+                                                <option value="torrar">Torrar</option>
+                                                <option value="investimento">Investimento</option>
+                                                <option value="caixa">Caixa</option>
+                                            </select>
                                             <label for="input-cat">Categoria</label>
                                         </div>
                                         <div class="input-field col s5 m3">
-                                            <input type="text" id="input-desc">
+                                            <input type="text" id="input-desc" maxlength="50">
                                             <label for="input-desc">Descrição</label>
                                         </div>
                                         <div class="input-field col s5 m2">
                                             <input type="text" id="input-val">
                                             <label for="input-val">Valor</label>
                                         </div>
-                                        <div class="input-field col s1 m1">
-                                            <a><i class="material-icons">add_circle</i></a>
+                                        <div class="input-field col s1 m1" title="Adicionar">
+                                            <a id="save" style="cursor:pointer"><i class="material-icons" id="add">add_circle</i></a>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div class="lancamentos section">
+
+                                    <div class="empty_lancs center-align">
+                                    
+                                        <div class="row">
+                                            <i class="material-icons large">assistant_photo</i>
+                                        </div>
+                                        <div class="row">
+                                            <h5><b>Ainda não há lançamentos neste período!</b></h5>
+                                            <h6>É hora de lançar suas movimentações</h6>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -193,4 +217,8 @@
         </div>
 
     </main>
+
+    <script>
+        $('#input-val').mask('000.000.000.000.000,00', {reverse: true});
+    </script>
 </body>
