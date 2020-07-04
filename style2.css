@@ -10,6 +10,7 @@
 *{
     --primary-color: #ee6e73;
     --success: #76ff03;
+    --danger: #e76868;
     --darken: #424242;
     --gray: #a7a7a7;
     --bg_light: #efefea;
@@ -84,6 +85,10 @@ main{
     box-shadow: 0px 2px 7px 0px rgba(0,0,0,0.75);
 }
 
-.rounded{
-    background-color: blue;
+.toast_success{
+    background-color: var(--success);
+}
+
+.toast_danger{
+    background-color: var(--danger);
 }

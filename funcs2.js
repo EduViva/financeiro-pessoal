@@ -137,5 +137,32 @@ function save(){
     console.log(categoria); 
     console.log(descricao); 
     console.log(valor); 
-    M.toast({html: 'Tá Lançado meu querido!', classes: 'rounded'});
+
+    data = {
+        'dia' : date[0],
+        'mes' : date[1],
+        'ano' : date[2],
+        'categoria' : categoria,
+        'descricao' : descricao,
+        'valor' : valor
+    }
+
+    $.ajax({
+		url: 'models/salvar_lancs.php',
+		type: "POST",
+		data: {'data': data},
+		cache: false,
+		async: true,
+        success: function(response) {
+
+            if(response){
+                M.toast({html: 'Tá Lançado meu querido!', classes: 'toast_success'});
+            } else {
+                M.toast({html: 'Ops! Não consegui salvar', classes: 'toast_danger'});
+            }
+
+            
+
+        }
+    });
 }
