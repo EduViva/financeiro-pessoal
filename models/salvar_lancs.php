@@ -10,12 +10,11 @@ $ano = $data['ano'];
 $categoria = $data['categoria'];
 $descricao = $data['descricao'];
 $valor = $data['valor'];
+$user = $data['id_user'];
 
-$query = "INSERT INTO `lancamentos` (dia, mes, ano, categoria, descricao, valor) VALUES
-('". $dia ."','" . $mes . "','" . $ano . "','" . $categoria . "','" . $descricao . "','" . $valor . "')";
+$query = "INSERT INTO `lancamentos` (dia, mes, ano, categoria, descricao, valor, id_usuario) VALUES
+('". $dia ."','" . $mes . "','" . $ano . "','" . $categoria . "','" . $descricao . "','" . $valor . "','" . $user . "')";
 
-
-//DECIMAL(M,D), FLOAT(M,D),NUMERIC(M,D),DOUBLE(M,D)
 
 $response = $db->query($query);
 

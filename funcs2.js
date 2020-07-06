@@ -1,3 +1,4 @@
+const id_user = 1;
 $(document).ready(function(){
     $('.tabs').tabs();
     $('select').formSelect();
@@ -59,11 +60,7 @@ $(document).ready(function(){
         inst_col2.open(0);
         $('.collapse2 .chevron-header').html('expand_less');
 
-        $('.collapsible').on('click', (e) => {
-            console.log(e);
-            console.log(e.currentTarget);
-            console.log(e.currentTarget.children);
-            
+        $('.collapsible').on('click', (e) => {  
             if(e.currentTarget.children[0].classList[1] == 'active'){
                 $(e.currentTarget.children[0].children[0].children[0]).html('expand_less');
             } else {
@@ -80,12 +77,10 @@ $(document).ready(function(){
 
     $('#save').on('click', save);
     
-
-
 });
 
 function change(month, year){
-    console.log(month,year);
+    get_datas(month, year, id_user);
 }
 
 function populate(monthSelection,yearSelection){
@@ -133,10 +128,7 @@ function save(){
     let descricao = $('#input-desc').val();
     let valor = $('#input-val').val();
 
-    console.log(date); 
-    console.log(categoria); 
-    console.log(descricao); 
-    console.log(valor); 
+    valor = valor.replace(".","").replace(",",".");
 
     data = {
         'dia' : date[0],
@@ -144,7 +136,8 @@ function save(){
         'ano' : date[2],
         'categoria' : categoria,
         'descricao' : descricao,
-        'valor' : valor
+        'valor' : valor,
+        'id_user' : id_user
     }
 
     $.ajax({
@@ -161,8 +154,100 @@ function save(){
                 M.toast({html: 'Ops! Não consegui salvar', classes: 'toast_danger'});
             }
 
-            
+            //Chamar função de mostrar na tela
 
         }
     });
+}
+
+function get_datas(month, year, user){
+
+    let months = {
+        "Janeiro" : "01",
+        "Fevereiro" : "02",
+        "Março" : "03",
+        "Abril" : "04",
+        "Maio" : "05",
+        "Junho" : "06",
+        "Julho" : "07",
+        "Agosto" : "08",
+        "Setembro" : "09",
+        "Outubro" : "10",
+        "Novembro" : "11",
+        "Dezembro" : "12"
+    }
+
+    data = {
+        'month' : months[month],
+        'year' : year,
+        'user' : user
+    }
+
+    $.ajax({
+		url: 'models/get_datas.php',
+		type: "POST",
+		data: {'data': data},
+		cache: false,
+		async: true,
+        success: function(response) {
+
+            if(response){
+                //Chamar função de mostrar na tela
+                $('.empty_lancs').hide();
+                response = JSON.parse(response);
+                show(response.lancamentos, response.movimentacoes);
+            } else {
+                M.toast({html: 'Ops! Algo inesperado aconteceu', classes: 'toast_danger'});
+            }
+
+        }
+    });
+}
+
+function show(lancs, movs){
+    console.log(lancs);
+
+    for(var key in lancs){
+
+        let pai = $('.results-lancs');
+
+        let div = $(document.createElement('div'));
+        
+        let date = $(document.createElement('div')); 
+        let cat = $(document.createElement('div')); 
+        let desc = $(document.createElement('div')); 
+        let val = $(document.createElement('div')); 
+        let action = $(document.createElement('div')); 
+
+        div.addClass('lanc-'+lancs[key].id);
+        div.addClass('lancamentos-item');
+        date.addClass('col s5 m3');
+        cat.addClass('col s6 m3');
+        desc.addClass('col s5 m3');
+        val.addClass('col s5 m2');
+        action.addClass('col s1 m1');
+
+        console.log(lancs[key]);
+        console.log(lancs[key].ano);
+
+        let formatedDate = lancs[key].dia + "/" + lancs[key].mes + "/" + lancs[key].ano;
+
+        date.append(document.createTextNode(formatedDate));
+        cat.append(document.createTextNode(lancs[key].categoria));
+        desc.append(document.createTextNode(lancs[key].descricao));
+        val.append(document.createTextNode(lancs[key].valor));
+
+        div.append(date);
+        div.append(cat);
+        div.append(desc);
+        div.append(val);
+        div.append(action);
+
+        pai.append(div);
+    };
+
+
+   
+
+
 }

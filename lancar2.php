@@ -152,6 +152,10 @@
 
                                     </div>
 
+                                    <div class="results results-lancs">
+                                        
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -177,32 +181,32 @@
                                 <li class="collection-item">
                                     <h6 class="green-text text-darken-1">Renda</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Seus Rendimentos">help</i>
-                                    <span class="right" id="mov_renda"></span>
+                                    <span class="right" id="mov_renda">R$ 0,00</span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Gastos essenciais</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>precisa</b> gastar <br> 40% da renda">help</i>
-                                    <span class="right" id="mov_gEssenc"></span>
+                                    <span class="right" id="mov_gEssenc">R$ 0,00</span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Gastos não essenciais</h6>  
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>não precisa</b> gastar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_gnEssenc"></span>
+                                    <span class="right" id="mov_gnEssenc">R$ 0,00</span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Torrar</h6>  
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>pode</b> gastar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_torrar"></span>
+                                    <span class="right" id="mov_torrar">R$ 0,00</span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Investimento</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve investir para o futuro <br> 30% da renda">help</i>
-                                    <span class="right" id="mov_invest"></span>
+                                    <span class="right" id="mov_invest">R$ 0,00</span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Caixa</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve guardar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_caixa"></span>
+                                    <span class="right" id="mov_caixa">R$ 0,00</span>
                                 </li>
                                 
                                 </ul>
