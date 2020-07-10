@@ -38,7 +38,7 @@ $final2 = array();
 
 if($result){
     while ($linha = $result->fetch_assoc()) {
-        $final2['movimentacao-'.$linha['id_movimentacoes']] = array(
+        $final2 = array(
             'id' => $linha['id_movimentacoes'],
             'renda' => $linha['renda'],
             'essenciais' => $linha['essenciais'],

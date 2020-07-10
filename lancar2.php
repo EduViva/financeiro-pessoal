@@ -29,48 +29,11 @@
                 </div>
             </div>
 
+            <!--Container escolha dos meses-->
             <div class="row">
                 <div class="container-body col s12 z-depth-1">
 
-                    <!--
-                    <div class="ls-tabs-btn col-md-10 col-md-offset-1 visible-md-block" id="tabs">
-                        <ul class="ls-tabs-btn-nav">
-                            <li class="col-md-1 col-sm-4 col-xs-4 ls-active"><label class="ls-btn" data-ls-module="button" data-target="#jan" onclick="getData('01')">Jan <input type="radio" id='1' name="btn" value="01"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#fev" onclick="getData('02')">Fev <input type="radio" name="btn" value="02"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#mar" onclick="getData('03')">Mar <input type="radio" name="btn" value="03"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#abr" onclick="getData('04')">Abr <input type="radio" name="btn" value="04"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#mai" onclick="getData('05')">Mai <input type="radio" name="btn" value="05"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#jun" onclick="getData('06')">Jun <input type="radio" name="btn" value="06"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#jul" onclick="getData('07')">Jul <input type="radio" name="btn" value="07"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#ago" onclick="getData('08')">Ago <input type="radio" name="btn" value="08"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#set" onclick="getData('09')">Set <input type="radio" name="btn" value="09"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#out" onclick="getData('10')">Out <input type="radio" name="btn" value="10"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#nov" onclick="getData('11')">Nov <input type="radio" name="btn" value="11"></label></li>
-                            <li class="col-md-1 col-sm-4 col-xs-4"><label class="ls-btn" data-ls-module="button" data-target="#dez" onclick="getData('12')">Dez <input type="radio" name="btn" value="12"></label></li>        
-                        </ul>
-                    </div>
-                    -->
-                    <!--Escolha dos meses desktop
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li id="tab-jan" class="tab col s1"><a href="#test1">Jan</a></li>
-                            <li class="tab col s1"><a href="#test2">Fev</a></li>
-                            <li id="tab-mar" class="tab col s1"><a href="#test1">Mar</a></li>
-                            <li class="tab col s1"><a href="#test1">Abr</a></li>
-                            <li class="tab col s1"><a href="#test1">Mai</a></li>
-                            <li class="tab col s1"><a href="#test1">Jun</a></li>
-                            <li class="tab col s1"><a href="#test1">Jul</a></li>
-                            <li class="tab col s1"><a href="#test1">Ago</a></li>
-                            <li class="tab col s1"><a href="#test1">Set</a></li>
-                            <li class="tab col s1"><a href="#test1">Out</a></li>
-                            <li class="tab col s1"><a href="#test1">Nov</a></li>
-                            <li class="tab col s1"><a href="#test1">Dez</a></li>
-                        </ul>
-                    </div>       
-                    <!--Fim escolha dos meses-->
-
-                    <!--Escolha dos meses mobile-->
-                    
+                    <!--Escolha dos meses-->
                     <div class="input-field month_field col s8">
                         <select id="month_select">
                             <option value="" disabled selected>Escolha um mês</option>
@@ -84,8 +47,8 @@
                         </select>
                         <label>Ano</label>
                     </div>
-                    
                     <!--Fim Escolha dos meses-->
+
                 </div>
             </div>
         </div>
@@ -177,36 +140,38 @@
                             <!--Body movimentações-->
                             <div class="container-body collapsible-body z-depth-1">
                                 
-                            <ul class="collection collection-movs">
+                            <ul class="collection collection-movs with-header">
                                 <li class="collection-item">
                                     <h6 class="green-text text-darken-1">Renda</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="Seus Rendimentos">help</i>
-                                    <span class="right" id="mov_renda">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_renda"></span>
                                 </li>
+                                <li class="collection-header"><h5>Gastos</h5></li>
                                 <li class="collection-item">
-                                    <h6>Gastos essenciais</h6>
+                                    <h6>Essenciais</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>precisa</b> gastar <br> 40% da renda">help</i>
-                                    <span class="right" id="mov_gEssenc">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_gEssenc"></span>
                                 </li>
                                 <li class="collection-item">
-                                    <h6>Gastos não essenciais</h6>  
+                                    <h6>Não essenciais</h6>  
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>não precisa</b> gastar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_gnEssenc">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_gnEssenc"></span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Torrar</h6>  
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você <b>pode</b> gastar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_torrar">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_torrar"></span>
                                 </li>
+                                <li class="collection-header"><h5>Guardar</h5></li>
                                 <li class="collection-item">
                                     <h6>Investimento</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve investir para o futuro <br> 30% da renda">help</i>
-                                    <span class="right" id="mov_invest">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_invest"></span>
                                 </li>
                                 <li class="collection-item">
                                     <h6>Caixa</h6>
                                     <i class="tiny material-icons tooltipped" data-position="top" data-tooltip="O que você deve guardar <br> 10% da renda">help</i>
-                                    <span class="right" id="mov_caixa">R$ 0,00</span>
+                                    <span class="right mov_value" id="mov_caixa"></span>
                                 </li>
                                 
                                 </ul>
