@@ -17,15 +17,15 @@ $final1 = array();
 
 if($result){
     while ($linha = $result->fetch_assoc()) {
-            $final1['lancamento-'.$linha['id_lancamentos']] = array(
-                'id' => $linha['id_lancamentos'],
-                'dia' => $linha['dia'],
-                'mes' => $linha['mes'],
-                'ano' => $linha['ano'],
-                'categoria' => $linha['categoria'],
-                'descricao' => $linha['descricao'],
-                'valor' => $linha['valor'] 
-            );
+        $final1['lancamento-'.$linha['id_lancamentos']] = array(
+            'id' => $linha['id_lancamentos'],
+            'dia' => $linha['dia'],
+            'mes' => $linha['mes'],
+            'ano' => $linha['ano'],
+            'categoria' => $linha['categoria'],
+            'descricao' => $linha['descricao'],
+            'valor' => $linha['valor'] 
+        );
     }
 }
 

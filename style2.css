@@ -16,6 +16,7 @@
     }
     .lancamentos-item .delete-lancs .material-icons{
         font-size: 15pt;
+        line-height: 240%;
     }
 }
 @media(max-width: 992px){
@@ -32,6 +33,7 @@
 *{
     --primary-color: #ee6e73;
     --success: #76ff03;
+    --warning: #d7da59;
     --danger: #e76868;
     --darken: #424242;
     --gray: #a7a7a7;
@@ -111,6 +113,10 @@ main{
     background-color: var(--success);
 }
 
+.toast_warning{
+    background-color: var(--warning);
+}
+
 .toast_danger{
     background-color: var(--danger);
 }
@@ -124,6 +130,6 @@ main{
     font-size: 15pt;
 }
 
-.delete-lancs{
+.delete-lancs a{
     cursor: pointer;
 }

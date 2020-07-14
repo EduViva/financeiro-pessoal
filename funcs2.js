@@ -1,12 +1,5 @@
 const id_user = 1;
 
-/*
-const obj = { a:1, b:2 }
-const add = { c:3, d:4, e: ['x','y','z'] }
-
-Object.entries(add).forEach(([key,value]) => { obj[key] = value })
-*/
-
 $(document).ready(function(){
     $('.tabs').tabs();
     $('select').formSelect();
@@ -49,7 +42,6 @@ $(document).ready(function(){
 
         change(val_month,val_year);
     });
-
 
 
     //initializing and openning acordeons
@@ -130,29 +122,12 @@ function populate(monthSelection,yearSelection){
 
 }
 
-function stringfy(val){
-    return Number(val).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-}
-
 function get_datas(month, year, user){
 
-    let months = {
-        "Janeiro" : "01",
-        "Fevereiro" : "02",
-        "Março" : "03",
-        "Abril" : "04",
-        "Maio" : "05",
-        "Junho" : "06",
-        "Julho" : "07",
-        "Agosto" : "08",
-        "Setembro" : "09",
-        "Outubro" : "10",
-        "Novembro" : "11",
-        "Dezembro" : "12"
-    }
+    month = monthFormat(month)
 
     let data = {
-        'month' : months[month],
+        'month' : month,
         'year' : year,
         'user' : user
     }
@@ -196,7 +171,8 @@ function show(lancs, movs){
             let date = $(document.createElement('div')); 
             let cat = $(document.createElement('div')); 
             let desc = $(document.createElement('div')); 
-            let val = $(document.createElement('div')); 
+            let val = $(document.createElement('div'));
+            let divDel = $(document.createElement('div'));
             let action = $(document.createElement('a'));
             let icon = $(document.createElement('i'));
 
@@ -206,14 +182,18 @@ function show(lancs, movs){
             cat.addClass('col s6 m3');
             desc.addClass('col s5 m3 truncate tooltipped');
             val.addClass('col s5 m2');
-            action.addClass('col s1 m1 delete-lancs');
+            divDel.addClass('col s1 m1 delete-lancs');
             icon.addClass('material-icons');
 
             desc.attr({
                 'data-position':'right',
                 'data-tooltip' : lancs[key].descricao
-            })
-            action.attr('data-delete',lancs[key].id);
+            });
+
+            action.attr({
+                'title' : 'Excluir',
+                'onclick' : `excluir('${lancs[key].id}', '${lancs[key].categoria}', '${lancs[key].valor}')`
+            });
 
             let formatedDate = lancs[key].dia + "/" + lancs[key].mes + "/" + lancs[key].ano;
             
@@ -223,16 +203,18 @@ function show(lancs, movs){
             val.append(stringfy(lancs[key].valor));
             action.append(icon.append('delete'));
 
+            divDel.append(action);
+
             div.append(date);
             div.append(cat);
             div.append(desc);
             div.append(val);
-            div.append(action);
+            div.append(divDel);
 
             pai.append(div);
 
             var elems = document.querySelectorAll('.tooltipped');
-            M.Tooltip.init(elems, {'enterDelay' : 720, 'margin' : -20});
+            M.Tooltip.init(elems, {'enterDelay' : 720});
         };
     };
     
@@ -251,114 +233,83 @@ function show(lancs, movs){
 }
 
 function save(){
-    let date = $('#input-date').val().split('-').reverse();
+    let date = $('#input-date').val();
     let categoria = $('#field-categoria input').val();
     let descricao = $('#input-desc').val();
     let valor = $('#input-val').val();
 
-    console.log(valor);
-    valor = valor.split(".").join("").replace(",",".");
-    console.log(valor);
-    let saveMov = somar(categoria,valor);
-    console.log(saveMov);
+    if(date == "" || descricao == "" || valor == "" || categoria == "Escolha uma"){
 
-    let data = {
-        'dia' : date[0],
-        'mes' : date[1],
-        'ano' : date[2],
-        'categoria' : categoria,
-        'descricao' : descricao,
-        'valor' : valor,
-        'save_cat' : saveMov['categoria'],
-        'save_val' : saveMov['valor'],
-        'id_user' : id_user
-    }
+        M.toast({html: 'Preencha os campos antes de salvar', classes: 'toast_warning'});
 
-    let selected_month = $('.month_field input').val();
-    let selected_year = $('.year_field input').val();
+    } else {
 
-    console.log(date[1]+"/"+date[2]);
-    console.log(selected_month + " / " + selected_year);
+        date = date.split('-').reverse();
+        valor = valor.split(".").join("").replace(",",".");
 
-    $.ajax({
-		url: 'models/salvar_lancs.php',
-		type: "POST",
-		data: {'data': data},
-		cache: false,
-		async: true,
-        success: function(response) {
+        let saveMov = saveFormat(categoria,valor);
 
-            if(response){
-                M.toast({html: 'Tá Lançado meu querido!', classes: 'toast_success'});
-
-                let months = {
-                    "Janeiro" : "01",
-                    "Fevereiro" : "02",
-                    "Março" : "03",
-                    "Abril" : "04",
-                    "Maio" : "05",
-                    "Junho" : "06",
-                    "Julho" : "07",
-                    "Agosto" : "08",
-                    "Setembro" : "09",
-                    "Outubro" : "10",
-                    "Novembro" : "11",
-                    "Dezembro" : "12"
-                }
-                
-                if(date[1] == months[selected_month] && date[2] == selected_year){
-
-                    $('.empty_lancs').hide()
-                    response = JSON.parse(response);
-
-                    let lancamento = {};
-                    lancamento['first'] = {
-                        'id' : response['id_lanc'],
-                        'dia' : date[0],
-                        'mes' : date[1],
-                        'ano' : date[2],
-                        'categoria' : categoria,
-                        'descricao' : descricao,
-                        'valor' : valor
-                    };
-
-                    let calculado = calculate(response);
-                    show(lancamento,calculado);
-                }
-
-                $('#input-val').val('');
-                $('#input-desc').val('');
-                M.updateTextFields();
-
-            } else {
-                M.toast({html: 'Ops! Não consegui salvar', classes: 'toast_danger'});
-            }
-
+        let data = {
+            'dia' : date[0],
+            'mes' : date[1],
+            'ano' : date[2],
+            'categoria' : categoria,
+            'descricao' : descricao,
+            'valor' : valor,
+            'save_cat' : saveMov['categoria'],
+            'save_val' : saveMov['valor'],
+            'id_user' : id_user
         }
-    });
-}
 
-function somar(categoria, valor){
+        console.log(data);
 
-    let values = {
-        'Renda' : 'renda',
-        'Gastos Essenciais' : 'essenciais',
-        'Gastos não Essenciais' : 'n_essenciais',
-        'Torrar' : 'torrar',
-        'Investimento' : 'investimentos',
-        'Caixa' : 'caixa',
+        let selected_month = monthFormat($('.month_field input').val());
+        let selected_year = $('.year_field input').val();
+
+        console.log(date[1]+"/"+date[2]);
+        console.log(selected_month + "/" + selected_year);
+
+        $.ajax({
+            url: 'models/salvar_lancs.php',
+            type: "POST",
+            data: {'data': data},
+            cache: false,
+            async: true,
+            success: function(response) {
+                console.log(response);
+                if(response){
+                    M.toast({html: 'Tá Lançado meu querido!', classes: 'toast_success'});
+
+                    if(date[1] == selected_month && date[2] == selected_year){
+
+                        $('.empty_lancs').hide()
+                        response = JSON.parse(response);
+
+                        let lancamento = {};
+                        lancamento['first'] = {
+                            'id' : response['id_lanc'],
+                            'dia' : date[0],
+                            'mes' : date[1],
+                            'ano' : date[2],
+                            'categoria' : categoria,
+                            'descricao' : descricao,
+                            'valor' : valor
+                        };
+
+                        let calculado = calculate(response);
+                        show(lancamento,calculado);
+                    }
+
+                    $('#input-val').val('');
+                    $('#input-desc').val('');
+                    M.updateTextFields();
+
+                } else {
+                    M.toast({html: 'Ops! Não consegui salvar', classes: 'toast_danger'});
+                }
+            }
+        });
     }
-
-    categoria = values[categoria];
-    valor = Number(valor); 
-
-    let saida = {
-        'categoria' : categoria,
-        'valor' : valor
-    };
-
-    return saida;
-
 }
 
 function calculate(objeto){
@@ -377,6 +328,104 @@ function calculate(objeto){
 
 }
 
-function excluir(){
+function excluir(id, categoria, valor){
+    console.log('ast' + id);
+
+    if(confirm("Você deseja realmente excluir este item?")){
+
+        let val_month = $('.month_field input').val();
+        let val_year = $('.year_field input').val();
+
+        val_month = monthFormat(val_month);
+        categoria = categoriaFormat(categoria);
+        
+        let data = {
+            'id' : id,
+            'categoria' : categoria,
+            'valor' : valor,
+            'mes' : val_month,
+            'ano' : val_year,
+            'user' : id_user
+        }
+
+        console.log(data);
+
+        $.ajax({
+            url: 'models/excluir_lancs.php',
+            type: "POST",
+            data: {'data': data},
+            cache: false,
+            async: true,
+            success: function(response) {
+
+                if(response){
+                    M.toast({html: 'Excluido com sucesso!', classes: 'toast_success'}); 
+                    console.log(response);
+                    //response = JSON.parse(response);
+
+                    //let calculado = calculate(response);
+                    //show(lancamento,calculado);
+                    
+                } else {
+                    M.toast({html: 'Ops! Não consegui excluir', classes: 'toast_danger'});
+                }
+            }
+        });
+
+    }
+
+}
+
+//Formaters
+
+function stringfy(val){
+    return Number(val).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+}
+
+function monthFormat(val){
+    let months = {
+        "Janeiro" : "01",
+        "Fevereiro" : "02",
+        "Março" : "03",
+        "Abril" : "04",
+        "Maio" : "05",
+        "Junho" : "06",
+        "Julho" : "07",
+        "Agosto" : "08",
+        "Setembro" : "09",
+        "Outubro" : "10",
+        "Novembro" : "11",
+        "Dezembro" : "12"
+    }
+
+    return months[val];
+}
+
+function categoriaFormat(val){
+
+    let values = {
+        'Renda' : 'renda',
+        'Gastos Essenciais' : 'essenciais',
+        'Gastos não Essenciais' : 'n_essenciais',
+        'Torrar' : 'torrar',
+        'Investimento' : 'investimentos',
+        'Caixa' : 'caixa',
+    }
+
+    return values[val];
+
+}
+
+function saveFormat(categoria, valor){
+
+    categoria = categoriaFormat(categoria);
+    valor = Number(valor); 
+
+    let saida = {
+        'categoria' : categoria,
+        'valor' : valor
+    };
+
+    return saida;
 
 }
