@@ -21,9 +21,8 @@
 
     $response = $db->query($query);
 
-    if($response){
+    if(!$db->error){
         
-        $saved = $saved + 1;
         $id_lanc = mysqli_insert_id($db);
 
         $busca = "SELECT * FROM `movimentacoes` WHERE `mes`=". $mes ." AND `ano`=". $ano ." AND `id_usuario`=". $user;
@@ -33,18 +32,14 @@
             $sql = "UPDATE `movimentacoes` SET `".$cat_mov."`= `".$cat_mov."` + ".$val." WHERE `mes`=".$mes." AND `ano`=".$ano." AND `id_usuario`=". $user;
         } else {
             $sql = "INSERT INTO `movimentacoes` (mes, ano, " . $cat_mov . ", id_usuario) VALUES 
-            ('" . $mes . "','" . $ano . "','" . $val_mov . "','" . $user . "')";
+            ('" . $mes . "','" . $ano . "','" . $val . "','" . $user . "')";
         }
         
         $mov_response = $db->query($sql);
 
-        if($mov_response){
-            $saved = $saved + 1;
-        }
-
     }
 
-    if($saved == 2){
+    if(!$db->error){
 
         $sql = "SELECT * FROM `movimentacoes` WHERE `mes`=". $mes ." AND `ano`=". $ano ." AND `id_usuario`=". $user;
         
@@ -52,7 +47,7 @@
 
         $final2 = array();
 
-        if($result){
+        if(!$db->error){
             while ($linha = $result->fetch_assoc()) {
                 $final2 = array(
                     'id_lanc' => $id_lanc,

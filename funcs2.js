@@ -77,6 +77,7 @@ $(document).ready(function(){
 
     $('#save').on('click', save);
     
+    
 });
 
 function change(month, year){
@@ -146,11 +147,17 @@ function get_datas(month, year, user){
 
             if(response){
                 //Chamar função de mostrar na tela
-                $('.empty_lancs').hide();
-                response = JSON.parse(response);
+                if(response != 'true'){
+                    $('.empty_lancs').hide();
 
-                let calculado = calculate(response.movimentacoes);
-                show(response.lancamentos, calculado);
+                    console.log(response);
+                    response = JSON.parse(response);
+                    console.log('----');
+                    console.log(response);
+
+                    let calculado = calculate(response.movimentacoes);
+                    show(response.lancamentos, calculado);
+                }
             } else {
                 M.toast({html: 'Ops! Algo inesperado aconteceu', classes: 'toast_danger'});
             }
@@ -164,6 +171,8 @@ function show(lancs, movs){
     for(var key in lancs){
         if(key != 0){
 
+            let nodes = $('.results-lancs').children().length;
+
             let pai = $('.results-lancs');
 
             let div = $(document.createElement('div'));
@@ -176,13 +185,14 @@ function show(lancs, movs){
             let action = $(document.createElement('a'));
             let icon = $(document.createElement('i'));
 
-            div.addClass('lanc-'+lancs[key].id);
+            div.addClass('lanc-'+nodes);
             div.addClass('lancamentos-item');
             date.addClass('col s5 m3');
             cat.addClass('col s6 m3');
             desc.addClass('col s5 m3 truncate tooltipped');
             val.addClass('col s5 m2');
             divDel.addClass('col s1 m1 delete-lancs');
+            action.addClass(`del-${lancs[key].id}`);
             icon.addClass('material-icons');
 
             desc.attr({
@@ -192,7 +202,7 @@ function show(lancs, movs){
 
             action.attr({
                 'title' : 'Excluir',
-                'onclick' : `excluir('${lancs[key].id}', '${lancs[key].categoria}', '${lancs[key].valor}')`
+                'onclick' : 'excluir(this)'
             });
 
             let formatedDate = lancs[key].dia + "/" + lancs[key].mes + "/" + lancs[key].ano;
@@ -215,6 +225,7 @@ function show(lancs, movs){
 
             var elems = document.querySelectorAll('.tooltipped');
             M.Tooltip.init(elems, {'enterDelay' : 720});
+
         };
     };
     
@@ -245,7 +256,6 @@ function save(){
     } else {
 
         date = date.split('-').reverse();
-        valor = valor.split(".").join("").replace(",",".");
 
         let saveMov = saveFormat(categoria,valor);
 
@@ -293,7 +303,7 @@ function save(){
                             'ano' : date[2],
                             'categoria' : categoria,
                             'descricao' : descricao,
-                            'valor' : valor
+                            'valor' : saveMov['valor']
                         };
 
                         let calculado = calculate(response);
@@ -323,32 +333,37 @@ function calculate(objeto){
     movs['investimentos'] = (objeto['renda'] * 30 / 100) - objeto['investimentos'];
     movs['caixa'] = (objeto['renda'] * 10 / 100) - objeto['caixa'];
 
-    console.log(movs);
     return movs;
 
 }
 
-function excluir(id, categoria, valor){
-    console.log('ast' + id);
+function excluir(obj){
 
     if(confirm("Você deseja realmente excluir este item?")){
 
         let val_month = $('.month_field input').val();
         let val_year = $('.year_field input').val();
 
+        let id = obj.classList[0].split('-')[1];
+
+        obj = $(`.del-${id}`).parent().parent()[0].children;
+
+        let cat = obj[1].textContent;
+        let val = obj[3].textContent.split("$")[1];
+
+
         val_month = monthFormat(val_month);
-        categoria = categoriaFormat(categoria);
-        
+        let formated = saveFormat(cat,val);
+
         let data = {
             'id' : id,
-            'categoria' : categoria,
-            'valor' : valor,
+            'categoria' : formated['categoria'],
+            'valor' : formated['valor'],
             'mes' : val_month,
             'ano' : val_year,
             'user' : id_user
         }
 
-        console.log(data);
 
         $.ajax({
             url: 'models/excluir_lancs.php',
@@ -360,11 +375,16 @@ function excluir(id, categoria, valor){
 
                 if(response){
                     M.toast({html: 'Excluido com sucesso!', classes: 'toast_success'}); 
-                    console.log(response);
-                    //response = JSON.parse(response);
 
-                    //let calculado = calculate(response);
-                    //show(lancamento,calculado);
+                    $(`.del-${id}`).parent().parent()[0].remove();
+
+                    if(!$('.results-lancs')[0].hasChildNodes()){
+                        $('.empty_lancs').show();
+                    }
+                    response = JSON.parse(response);
+
+                    let calculado = calculate(response);
+                    show({0:'linkedin.com/in/edu-viva'},calculado);
                     
                 } else {
                     M.toast({html: 'Ops! Não consegui excluir', classes: 'toast_danger'});
@@ -376,8 +396,8 @@ function excluir(id, categoria, valor){
 
 }
 
-//Formaters
 
+//Formaters
 function stringfy(val){
     return Number(val).toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
 }
@@ -419,6 +439,8 @@ function categoriaFormat(val){
 function saveFormat(categoria, valor){
 
     categoria = categoriaFormat(categoria);
+
+    valor = valor.split(".").join("").replace(",",".");
     valor = Number(valor); 
 
     let saida = {

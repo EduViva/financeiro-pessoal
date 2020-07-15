@@ -10,10 +10,11 @@ $user = $data['user'];
 
 
 $sql = "SELECT * FROM lancamentos WHERE mes='".$mes."' AND ano='".$ano."' AND id_usuario='" .$user."'";
-
 $result = $db->query($sql);
 
 $final1 = array();
+
+$lanc_err = $db->error;
 
 if($result){
     while ($linha = $result->fetch_assoc()) {
@@ -50,17 +51,29 @@ if($result){
     }
 }
 
-
-if($final1){
+echo var_dump($final2);
+$count = 0;
+foreach ($final2 as $key => $value){
+    if($final2[$key] == "0.00"){
+        $count++;
+    }
+}
+if($count >= 6){
+    echo "linha vazia";
+} else {
+    echo "linha ocupada";
+}
+/*
+if(!$lanc_err && !$db->error){
     if($final2){
         $return = array('lancamentos' => $final1, 'movimentacoes' => $final2);
         echo json_encode( $return );
     } else {
-        echo json_encode( $final1 );
+        echo "true";
     }
 } else {
     echo false;
-}
+}*/
 
 
 ?>
