@@ -7,6 +7,16 @@
     }
 }
 
+*{
+    --primary-color: #ee6e73;
+    --success: #76ff03;
+    --warning: #d7da59;
+    --danger: #e76868;
+    --darken: #424242;
+    --gray: #a7a7a7;
+    --bg_light: #efefea;
+}
+
 body {
     background-color: #f3f3f3;
 }

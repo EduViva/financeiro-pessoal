@@ -1,11 +1,17 @@
 <?php 
 
     include "template.html";
-    //include "controllers/dbAccess.php";
 
-    date_default_timezone_set('America/Sao_Paulo');
-    $atualDate = date('d/m/Y');
-    $atualAno = date('Y');
+    /*
+    sec_session_start();
+    if(login_check($mysqli) == true) {
+
+    // Adicione o conteúdo de sua página protegida aqui.
+
+    } else {
+        echo 'Você não está autorizado a acessar esta página. Por favor, efetue login. <br/>';
+    }
+    */
 
 ?>
 
@@ -191,3 +197,7 @@
         $('#input-val').mask('000.000.000.000.000,00', {reverse: true});
     </script>
 </body>
+
+
+CREATE USER 'sec_user'@'localhost' IDENTIFIED BY 'Th7HN87AacBtgRsM';
+GRANT SELECT, INSERT, UPDATE ON `secure_login`.* TO 'sec_user'@'localhost';

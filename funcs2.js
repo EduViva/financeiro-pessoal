@@ -147,7 +147,7 @@ function get_datas(month, year, user){
 
             if(response){
                 //Chamar função de mostrar na tela
-                if(response != 'true'){
+                if(response != 'noReturn'){
                     $('.empty_lancs').hide();
 
                     console.log(response);

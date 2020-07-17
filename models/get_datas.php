@@ -1,79 +1,74 @@
 <?php
 
-require 'dbAccess.php';
+    require 'dbAccess.php';
 
-$data = $_POST['data'];
+    $data = $_POST['data'];
 
-$mes = $data['month'];
-$ano = $data['year'];
-$user = $data['user'];
+    $mes = $data['month'];
+    $ano = $data['year'];
+    $user = $data['user'];
 
 
-$sql = "SELECT * FROM lancamentos WHERE mes='".$mes."' AND ano='".$ano."' AND id_usuario='" .$user."'";
-$result = $db->query($sql);
+    $sql = "SELECT * FROM lancamentos WHERE mes='".$mes."' AND ano='".$ano."' AND id_usuario='" .$user."'";
+    $result = $db->query($sql);
 
-$final1 = array();
+    $final1 = array();
 
-$lanc_err = $db->error;
+    $lanc_err = $db->error;
 
-if($result){
-    while ($linha = $result->fetch_assoc()) {
-        $final1['lancamento-'.$linha['id_lancamentos']] = array(
-            'id' => $linha['id_lancamentos'],
-            'dia' => $linha['dia'],
-            'mes' => $linha['mes'],
-            'ano' => $linha['ano'],
-            'categoria' => $linha['categoria'],
-            'descricao' => $linha['descricao'],
-            'valor' => $linha['valor'] 
-        );
+    if($result){
+        while ($linha = $result->fetch_assoc()) {
+            $final1['lancamento-'.$linha['id_lancamentos']] = array(
+                'id' => $linha['id_lancamentos'],
+                'dia' => $linha['dia'],
+                'mes' => $linha['mes'],
+                'ano' => $linha['ano'],
+                'categoria' => $linha['categoria'],
+                'descricao' => $linha['descricao'],
+                'valor' => $linha['valor'] 
+            );
+        }
     }
-}
 
 
-$sql = "SELECT * FROM movimentacoes WHERE mes='".$mes."' AND ano='".$ano."' AND id_usuario='" .$user."'";
+    $sql = "SELECT * FROM movimentacoes WHERE mes='".$mes."' AND ano='".$ano."' AND id_usuario='" .$user."'";
 
-$result = $db->query($sql);
+    $result = $db->query($sql);
 
-$final2 = array();
+    $final2 = array();
 
-if($result){
-    while ($linha = $result->fetch_assoc()) {
-        $final2 = array(
-            'id' => $linha['id_movimentacoes'],
-            'renda' => $linha['renda'],
-            'essenciais' => $linha['essenciais'],
-            'n_essenciais' => $linha['n_essenciais'],
-            'torrar' => $linha['torrar'],
-            'investimentos' => $linha['investimentos'],
-            'caixa' => $linha['caixa'] 
-        );  
+    if($result){
+        while ($linha = $result->fetch_assoc()) {
+            $final2 = array(
+                'id' => $linha['id_movimentacoes'],
+                'renda' => $linha['renda'],
+                'essenciais' => $linha['essenciais'],
+                'n_essenciais' => $linha['n_essenciais'],
+                'torrar' => $linha['torrar'],
+                'investimentos' => $linha['investimentos'],
+                'caixa' => $linha['caixa'] 
+            );  
+        }
     }
-}
 
-echo var_dump($final2);
-$count = 0;
-foreach ($final2 as $key => $value){
-    if($final2[$key] == "0.00"){
-        $count++;
+    //Checando se existe uma linha vazia em movimentações para não retorná-la
+    $count = 0;
+    foreach ($final2 as $key => $value){
+        if($final2[$key] == "0.00"){
+            $count++;
+        }
     }
-}
-if($count >= 6){
-    echo "linha vazia";
-} else {
-    echo "linha ocupada";
-}
-/*
-if(!$lanc_err && !$db->error){
-    if($final2){
-        $return = array('lancamentos' => $final1, 'movimentacoes' => $final2);
-        echo json_encode( $return );
+
+    if(!$lanc_err && !$db->error){
+        if($final2 && $count < 6){
+            $return = array('lancamentos' => $final1, 'movimentacoes' => $final2);
+            echo json_encode( $return );
+        } else {
+            echo "noReturn";
+        }
     } else {
-        echo "true";
+        echo false;
     }
-} else {
-    echo false;
-}*/
 
 
 ?>
