@@ -4,9 +4,10 @@
 
     // A senha em hash do formulário
     $password = $_POST['p'];
-    $username = $_POST['name'];
+    $username = $_POST['nome'];
     $email = $_POST['email'];
     $wrongPass = $_POST['password'];
+    $result = "";
     
     // Cria um salt randômico
     $random_salt = hash('sha512', uniqid(mt_rand(1, mt_getrandmax()), true));
@@ -19,7 +20,9 @@
     if ($insert_stmt = $db_secure->prepare("INSERT INTO members (username, email, password, salt) VALUES (?, ?, ?, ?)")) {    
         $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt); 
         // Execute a query preparada.
-        $insert_stmt->execute();
+        $result = $insert_stmt->execute();
     }
+
+    header('location: ../login2.php?register='.$result);
 
 ?>

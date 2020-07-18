@@ -9,10 +9,10 @@
         $password = $_POST['p']; // A senha em hash.
         if(login($email, $password, $db_secure) == true) {
             // Login com sucesso
-            echo 'Sucesso: Você efetuou login.';
+            header('location: ../lancar2.php');
         } else {
             // Falha de login
-            header('Lozalização: ./login.php?error=1');
+            header('location: ../login2.php?errorLogin=1');
         }
     } else { 
         // As variáveis POST corretas não foram enviadas para esta página.

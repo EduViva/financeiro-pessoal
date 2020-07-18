@@ -14,6 +14,7 @@
     
     // Destrói a sessão
     session_destroy();
-    header('Lozalização: ../login.html');
+    
+    header('location: ../login2.php');
 
 ?>

@@ -4,6 +4,7 @@ $(document).ready(function(){
     $('.tabs').tabs();
     $('select').formSelect();
     $('.tooltipped').tooltip();
+    $('.dropdown-trigger').dropdown();
 
     let monthSelection = $('#month_select');
     let yearSelection = $('#year_select');
@@ -76,7 +77,7 @@ $(document).ready(function(){
     }
 
     $('#save').on('click', save);
-    
+    $('.logout-button').on('click', logout);
     
 });
 
@@ -159,7 +160,7 @@ function get_datas(month, year, user){
                     show(response.lancamentos, calculado);
                 }
             } else {
-                M.toast({html: 'Ops! Algo inesperado aconteceu', classes: 'toast_danger'});
+                toastIt('Ops! Algo inesperado aconteceu', 'error');
             }
 
         }
@@ -251,7 +252,7 @@ function save(){
 
     if(date == "" || descricao == "" || valor == "" || categoria == "Escolha uma"){
 
-        M.toast({html: 'Preencha os campos antes de salvar', classes: 'toast_warning'});
+        toastIt('Preencha os campos antes de salvar!','warning');
 
     } else {
 
@@ -288,7 +289,8 @@ function save(){
             success: function(response) {
                 console.log(response);
                 if(response){
-                    M.toast({html: 'Tá Lançado meu querido!', classes: 'toast_success'});
+
+                    toastIt('Tá lançado meu querido!','success');
 
                     if(date[1] == selected_month && date[2] == selected_year){
 
@@ -315,7 +317,7 @@ function save(){
                     M.updateTextFields();
 
                 } else {
-                    M.toast({html: 'Ops! Não consegui salvar', classes: 'toast_danger'});
+                    toastIt('Ops! Não consegui salvar', 'error');
                 }
             }
         });
@@ -374,7 +376,7 @@ function excluir(obj){
             success: function(response) {
 
                 if(response){
-                    M.toast({html: 'Excluido com sucesso!', classes: 'toast_success'}); 
+                    toastIt('Excluido com sucesso!', 'success');
 
                     $(`.del-${id}`).parent().parent()[0].remove();
 
@@ -387,7 +389,7 @@ function excluir(obj){
                     show({0:'linkedin.com/in/edu-viva'},calculado);
                     
                 } else {
-                    M.toast({html: 'Ops! Não consegui excluir', classes: 'toast_danger'});
+                    M.toast({html: 'Ops! Não consegui excluir', classes: 'error'});
                 }
             }
         });
@@ -450,4 +452,28 @@ function saveFormat(categoria, valor){
 
     return saida;
 
+}
+
+function toastIt(text,classes){
+
+    let finalClass = {
+        'error' : 'toast_danger',
+        'success' : 'toast_success',
+        'warning' : 'toast_warning'
+    }
+
+    return M.toast({html: text, classes: finalClass[classes]});
+}
+
+//Logout
+function logout(){
+    $.ajax({
+        url: 'models/logout.php',
+        type: "POST",
+        cache: false,
+        async: true,
+        success: function(response) {
+            window.location.href = "./login2.php";
+        }
+    });
 }

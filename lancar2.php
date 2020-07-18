@@ -1,17 +1,16 @@
 <?php 
 
     include "template.html";
+    include "./models/db_login_access.php";
+    include "./models/functions.php";
 
-    /*
     sec_session_start();
-    if(login_check($mysqli) == true) {
+    
+    if(login_check($db_secure) != true) {
 
-    // Adicione o conteúdo de sua página protegida aqui.
+        header('location: ./login2.php?errorAccess=1');
 
-    } else {
-        echo 'Você não está autorizado a acessar esta página. Por favor, efetue login. <br/>';
     }
-    */
 
 ?>
 
@@ -197,7 +196,3 @@
         $('#input-val').mask('000.000.000.000.000,00', {reverse: true});
     </script>
 </body>
-
-
-CREATE USER 'sec_user'@'localhost' IDENTIFIED BY 'Th7HN87AacBtgRsM';
-GRANT SELECT, INSERT, UPDATE ON `secure_login`.* TO 'sec_user'@'localhost';

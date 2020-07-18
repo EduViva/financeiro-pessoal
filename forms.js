@@ -11,3 +11,13 @@ function formhash(form, password) {
     // Finalmente, submete o formulário.
     form.submit();
 }
+function toastIt(text,classes){
+
+    let finalClass = {
+        'error' : 'toast_danger',
+        'success' : 'toast_success',
+        'warning' : 'toast_warning'
+    }
+
+    return M.toast({html: text, classes: finalClass[classes]});
+}

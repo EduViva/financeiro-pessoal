@@ -26,7 +26,7 @@
                 <div class="card-content">
                     <span class="card-title"><b>Entrar</b></span>
                     <div class="divider"></div>
-                    <form action="/models/process_login.php" method="post" name="login_form">
+                    <form action="./models/process_login.php" method="post" name="login_form">
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field col s12 m10 offset-m1">
