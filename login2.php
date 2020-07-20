@@ -23,7 +23,7 @@
             echo `<script> toastIt('Usuário cadastrado!','success') </script>`;
             echo 'Usuário cadastrado!';
         } else {
-            echo `<script> toastIt('Ops! Usuário não cadastrado!','error') </script>`;
+            echo `<script> toastIt('Ops! O usuário não foi cadastrado!','error') </script>`;
             echo 'Usuário não cadastrado!';
         }
     }
@@ -33,7 +33,7 @@
     }
     if(isset($_GET['errorAccess'])){ 
         echo 'Você não está autorizado a acessar esta página. Por favor, efetue login.';
-        echo `<script> toastIt('Ops! Você não conseguiu logar','error') </script>`;
+        echo `<script> toastIt('Ops! Faça login para continuar','error') </script>`;
     }
 ?>
 <body class="body-login2">

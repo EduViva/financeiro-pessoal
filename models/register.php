@@ -4,7 +4,8 @@
 
     // A senha em hash do formulário
     $password = $_POST['p'];
-    $username = $_POST['nome'];
+    //$username = join("-",explode(" ",$_POST['nome']));
+    $username = str_replace(" ","-",preg_replace("/&([a-z])[a-z]+;/i", "$1", htmlentities(trim($_POST['nome']))));
     $email = $_POST['email'];
     $wrongPass = $_POST['password'];
     $result = "";
