@@ -28,32 +28,33 @@
                 if(checkbrute($user_id, $mysqli) == true) { 
                     // Conta está bloqueada
                     // Envia um email ao usuário comunicando que sua conta foi bloqueada
-                    return false;
+                    return 'blocked';
                 } else {
                     if($db_password == $password) { // Checa se a senha na base de dados confere com a senha que o usuário digitou. 
                         // Senha está correta!
-            
-                            $ip_address = $_SERVER['REMOTE_ADDR']; // Pega o endereço IP do usuário. 
-                            $user_browser = $_SERVER['HTTP_USER_AGENT']; // Pega a string de agente do usuário.
-            
-                            $user_id = preg_replace("/[^0-9]+/", "", $user_id); // Proteção XSS conforme poderíamos imprimir este valor
-                            $_SESSION['user_id'] = $user_id; 
-                            $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // Proteção XSS conforme poderíamos imprimir este valor
-                            $_SESSION['username'] = $username;
-                            $_SESSION['login_string'] = hash('sha512', $password.$ip_address.$user_browser);
-                            // Login com sucesso.
-                            return true;    
+        
+                        $ip_address = $_SERVER['REMOTE_ADDR']; // Pega o endereço IP do usuário. 
+                        $user_browser = $_SERVER['HTTP_USER_AGENT']; // Pega a string de agente do usuário.
+        
+                        $user_id = preg_replace("/[^0-9]+/", "", $user_id); // Proteção XSS conforme poderíamos imprimir este valor
+                        $_SESSION['user_id'] = $user_id; 
+                        $username = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $username); // Proteção XSS conforme poderíamos imprimir este valor
+                        $_SESSION['username'] = $username;
+                        $_SESSION['login_string'] = hash('sha512', $password.$ip_address.$user_browser);
+                        // Login com sucesso.
+                        return "success";    
                     } else {
-                    // Senha não está correta
-                    // Nós armazenamos esta tentativa na base de dados
-                    $now = time();
-                    $mysqli->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
-                    return false;
+                        // Senha não está correta
+                        // Nós armazenamos esta tentativa na base de dados
+                        $now = time();
+                        $mysqli->query("INSERT INTO login_attempts (user_id, time) VALUES ('$user_id', '$now')");
+
+                        return 'senha';
                     }
                 }
             } else {
                 // Nenhum usuário existe. 
-                return false;
+                return 'usuario';
             }
         }
     }

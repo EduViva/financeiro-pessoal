@@ -16,24 +16,26 @@
     <script type="text/javascript" src="forms.js"></script>
 </head>
 <?php
+    include_once 'models/process_login.php';
+
     if(isset($_GET['register'])){ 
         $registred = $_GET['register'];
    
         if($registred == 1){
-            echo `<script> toastIt('Usuário cadastrado!','success') </script>`;
-            echo 'Usuário cadastrado!';
+            echo '<script> toastIt("Usuário cadastrado!","success") </script>';
         } else {
             echo `<script> toastIt('Ops! O usuário não foi cadastrado!','error') </script>`;
-            echo 'Usuário não cadastrado!';
         }
-    }
+    }/*
     if(isset($_GET['errorLogin'])){ 
-        echo 'Usuário não logado!';
-        echo `<script> toastIt('Ops! Você não conseguiu logar','error') </script>`;
+        $erro = $_GET['errorLogin'];
+        echo '<script> toastIt("Ops! Você não conseguiu logar","error") </script>';
+    }*/
+    if(isset($GLOBALS['error'])){
+        echo '<script> toastIt("Usuário inválido","error") </script>';
     }
     if(isset($_GET['errorAccess'])){ 
-        echo 'Você não está autorizado a acessar esta página. Por favor, efetue login.';
-        echo `<script> toastIt('Ops! Faça login para continuar','error') </script>`;
+        echo '<script> toastIt("Ops! Faça login para continuar","error") </script>';
     }
 ?>
 <body class="body-login2">
@@ -47,24 +49,24 @@
                 </div>
                 
                 <div class="container-body login-body">
-                    <form action="./models/process_login.php" method="post" name="login_form">
+                    <form onsubmit="formSubmit(event)" name="login_form">
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field col s12 m10 offset-m1">
                                     <i class="material-icons prefix">account_circle</i>
-                                    <input type="email" name="email" id="input-login" class="validate">
-                                    <label for="input-login">E-mail</label>
-                                    <span class="helper-text" data-error="Ops! Preencha um e-mail válido"></span>
+                                    <input type="email" name="email" id="input-usuario" class="validate">
+                                    <label for="input-usuario">E-mail</label>
+                                    <span class="helper-text" id="helper-usuario" data-error="Ops! Este usuário não existe"></span>
                                 </div>
                                 <div class="input-field col s12 m10 offset-m1">
                                     <i class="material-icons prefix">lock</i>
-                                    <input type="password" name="password" id="input-pass" class="validate">
-                                    <label for="input-pass">Senha</label>
-                                    <span class="helper-text" data-error="Ops! Esta senha está errada"></span>
+                                    <input type="password" name="password" id="input-senha" class="validate">
+                                    <label for="input-senha">Senha</label>
+                                    <span class="helper-text" id="helper-senha" data-error="Ops! Esta senha está errada"></span>
                                 </div>
                             </div>
 
-                            <button class="btn waves-effect waves-light col s4 offset-s4" onclick="formhash(this.form, this.form.password);" type="submit" name="action">
+                            <button class="btn waves-effect waves-light col s4 offset-s4"  type="submit" name="action">
                                 Entrar 
                             </button>
                         </form>

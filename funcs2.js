@@ -405,7 +405,7 @@ function excluir(obj){
                     window.callShow({0:'linkedin.com/in/edu-viva'},calculado);
                     
                 } else {
-                    M.toast({html: 'Ops! Não consegui excluir', classes: 'error'});
+                    toastIt('Ops! Não consegui excluir','error');
                 }
             }
         });
