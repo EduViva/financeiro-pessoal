@@ -1,34 +1,29 @@
 <?php 
 
-    include "template.html";
-    include "./models/db_login_access.php";
-    include "./models/functions.php";
+    include "./models/login/db_login_access.php";
+    include "./models/login/functions.php";
 
     sec_session_start();
     
     //Checa se o client está logado, se não estiver volta pra tela de login
     if(login_check($db_secure) != true) {
-
         header('location: ./login2.php?errorAccess=1');
-
     }
-
+    include "template.html";
 ?>
-
 <head>
     <title>Lançar</title>
 
     <link rel="stylesheet" href="style2.css">
-    <script src="funcs2.js"></script>
+    <script src="./controllers/funcs2.js"></script>
 
 </head>
-
-<body>
 <script>
-    console.log("<?php echo $_SESSION['user_id'] ?>");
     setId(<?php echo $_SESSION['user_id'] ?>);
     setUserName("<?php echo $_SESSION['username'] ?>");
 </script>
+<body>
+
     <main>
 
         <div class="container-fluid container-date">

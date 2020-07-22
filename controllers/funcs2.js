@@ -146,7 +146,7 @@ $(document).ready(function(){
         }
     
         $.ajax({
-            url: 'models/get_datas.php',
+            url: './models/get_datas.php',
             type: "POST",
             data: {'data': data},
             cache: false,
@@ -284,7 +284,7 @@ $(document).ready(function(){
             let selected_year = $('.year_field input').val();
     
             $.ajax({
-                url: 'models/salvar_lancs.php',
+                url: './models/salvar_lancs.php',
                 type: "POST",
                 data: {'data': data},
                 cache: false,
@@ -384,7 +384,7 @@ function excluir(obj){
 
 
         $.ajax({
-            url: 'models/excluir_lancs.php',
+            url: './models/excluir_lancs.php',
             type: "POST",
             data: {'data': data},
             cache: false,
@@ -483,7 +483,7 @@ function toastIt(text,classes){
 //Logout
 function logout(){
     $.ajax({
-        url: 'models/logout.php',
+        url: './models/login/logout.php',
         type: "POST",
         cache: false,
         async: true,

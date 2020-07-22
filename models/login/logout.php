@@ -1,6 +1,6 @@
 <?php
 
-    include 'functions.php';
+    include './functions.php';
     sec_session_start();
     
     // Zera todos os valores da sessão
@@ -15,6 +15,6 @@
     // Destrói a sessão
     session_destroy();
     
-    header('location: ../login2.php');
+    header('location: ../../login2.php');
 
 ?>

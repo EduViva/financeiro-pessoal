@@ -1,7 +1,7 @@
 <?php
 
-    include 'db_login_access.php';
-    include 'functions.php';
+    include './db_login_access.php';
+    include './functions.php';
     sec_session_start(); // Nossa segurança personalizada para iniciar uma sessão php. 
 
     if(isset($_POST['data'])) { 

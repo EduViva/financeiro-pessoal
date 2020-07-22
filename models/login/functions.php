@@ -13,15 +13,32 @@
         session_regenerate_id(true); // regenerada a sessão, deleta a outra.
     }
 
+    function checkRegister($email, $mysqli){
+        // utilizar declarações preparadas significa que a injeção de código SQL não será possível. 
+        if ($stmt = $mysqli->prepare("SELECT email FROM members WHERE email = ? LIMIT 1")) { 
+            $stmt->bind_param('s', $email); // Vincula "$email" ao parâmetro.
+            $stmt->execute(); // Executa a query preparada.
+            $stmt->store_result();
+            $stmt->bind_result($mail); // obtém variáveis do resultado.
+            $stmt->fetch();
+            
+            if($stmt->num_rows == 1) { // se o usuário já existe
+                return $mail;
+            } else {
+                return false;
+            }
+        }
+    }
+
     function login($email, $password, $mysqli) {
         // utilizar declarações preparadas significa que a injeção de código SQL não será possível. 
         if ($stmt = $mysqli->prepare("SELECT id, username, password, salt FROM members WHERE email = ? LIMIT 1")) { 
-        $stmt->bind_param('s', $email); // Vincula "$email" ao parâmetro.
-        $stmt->execute(); // Executa a query preparada.
-        $stmt->store_result();
-        $stmt->bind_result($user_id, $username, $db_password, $salt); // obtém variáveis do resultado.
-        $stmt->fetch();
-        $password = hash('sha512', $password.$salt); // confere o hash de "$password" e "$salt"
+            $stmt->bind_param('s', $email); // Vincula "$email" ao parâmetro.
+            $stmt->execute(); // Executa a query preparada.
+            $stmt->store_result();
+            $stmt->bind_result($user_id, $username, $db_password, $salt); // obtém variáveis do resultado.
+            $stmt->fetch();
+            $password = hash('sha512', $password.$salt); // confere o hash de "$password" e "$salt"
         
             if($stmt->num_rows == 1) { // se o usuário existe
                 // Nós checamos se a conta está bloqueada devido a várias tentativas de login

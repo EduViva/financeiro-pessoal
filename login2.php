@@ -1,4 +1,29 @@
-<!DOCTYPE html>
+<?php
+    $setMail = isset($_GET['mail'])?$_GET['mail']:null;
+    echo '<script type="text/javascript" src="./controllers/forms.js"></script>';
+    echo '<link rel="stylesheet" href="template.css">';
+
+    if(isset($_GET['registred'])){ 
+        echo '<script> window.onload = function(){ 
+                toastIt("Usuário cadastrado!","success");
+                setMail("'.$setMail.'");}
+            </script>';
+    } else {
+        if(isset($_GET['mail'])){ 
+            echo '<script> window.onload = function(){ 
+                    toastIt("Este e-mail já está cadastrado","warning");
+                    setMail("'.$setMail.'");}
+                </script>';
+        }
+    }
+    
+    if(isset($_GET['errorAccess'])){ 
+        echo '<script> window.onload = function(){ 
+                toastIt("Ops! Faça login para continuar","error") }
+            </script>';
+    }
+?>
+
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -12,32 +37,9 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="sha512.js"></script>
-    <script type="text/javascript" src="forms.js"></script>
+    <script type="text/javascript" src="./controllers/sha512.js"></script>
 </head>
-<?php
-    include_once 'models/process_login.php';
 
-    if(isset($_GET['register'])){ 
-        $registred = $_GET['register'];
-   
-        if($registred == 1){
-            echo '<script> toastIt("Usuário cadastrado!","success") </script>';
-        } else {
-            echo `<script> toastIt('Ops! O usuário não foi cadastrado!','error') </script>`;
-        }
-    }/*
-    if(isset($_GET['errorLogin'])){ 
-        $erro = $_GET['errorLogin'];
-        echo '<script> toastIt("Ops! Você não conseguiu logar","error") </script>';
-    }*/
-    if(isset($GLOBALS['error'])){
-        echo '<script> toastIt("Usuário inválido","error") </script>';
-    }
-    if(isset($_GET['errorAccess'])){ 
-        echo '<script> toastIt("Ops! Faça login para continuar","error") </script>';
-    }
-?>
 <body class="body-login2">
     <div class="container">
         <div class="row valign-wrapper">
@@ -49,7 +51,7 @@
                 </div>
                 
                 <div class="container-body login-body">
-                    <form onsubmit="formSubmit(event)" name="login_form">
+                    <form onsubmit="loginSubmit(event)" name="login_form">
                         <div class="row">
                             <div class="col s12">
                                 <div class="input-field col s12 m10 offset-m1">
