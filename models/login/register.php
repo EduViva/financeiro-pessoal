@@ -11,7 +11,7 @@
         $password = $data['password'];
         
         //Checando se e-mail já está cadastrado
-        $exists = checkRegister($email, $db_secure);
+        $exists = checkExists($email, $db_secure);
 
         if($exists){
             $response = array(

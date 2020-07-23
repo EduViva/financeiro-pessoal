@@ -71,12 +71,12 @@
                             <button class="btn waves-effect waves-light col s4 offset-s4"  type="submit" name="action">
                                 Entrar 
                             </button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>   
                             
                 <div class="card-action">
-                    <a href="#">Esqueci minha senha</a>
+                    <a href="forget-pass.html">Esqueci minha senha</a>
                     <a href="register.html" class="right">Criar uma conta</a>
                 </div>
             </div>

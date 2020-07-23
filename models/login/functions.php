@@ -13,7 +13,7 @@
         session_regenerate_id(true); // regenerada a sessão, deleta a outra.
     }
 
-    function checkRegister($email, $mysqli){
+    function checkExists($email, $mysqli){
         // utilizar declarações preparadas significa que a injeção de código SQL não será possível. 
         if ($stmt = $mysqli->prepare("SELECT email FROM members WHERE email = ? LIMIT 1")) { 
             $stmt->bind_param('s', $email); // Vincula "$email" ao parâmetro.
