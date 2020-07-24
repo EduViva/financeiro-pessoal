@@ -5,16 +5,23 @@
 
     if(isset($_GET['registred'])){ 
         echo '<script> window.onload = function(){ 
-                toastIt("Usuário cadastrado!","success");
+                toastIt("Yeah! Agora você faz parte do time","success");
                 setMail("'.$setMail.'");}
             </script>';
     } else {
         if(isset($_GET['mail'])){ 
             echo '<script> window.onload = function(){ 
-                    toastIt("Este e-mail já está cadastrado","warning");
+                    toastIt("Ops! Este e-mail já está cadastrado","warning");
                     setMail("'.$setMail.'");}
                 </script>';
         }
+    }
+
+    if(isset($_GET['pass'])){
+        echo '<script> window.onload = function(){ 
+            toastIt("Yeah! Senha alterada com sucesso","success");
+            setMail("'.$setMail.'");}
+        </script>';
     }
     
     if(isset($_GET['errorAccess'])){ 

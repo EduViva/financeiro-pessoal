@@ -34,3 +34,14 @@ body {
 .nav-wrapper .user-nav-list{
     background: rgba(102, 102, 102,.5);
 }
+
+/*Materialize toasts*/
+.toast_success{
+    background-color: var(--success);
+}
+.toast_warning{
+    background-color: var(--warning);
+}
+.toast_danger{
+    background-color: var(--danger);
+}

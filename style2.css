@@ -117,17 +117,6 @@ main{
     cursor: pointer;
 }
 
-/*Materialize toasts*/
-.toast_success{
-    background-color: var(--success);
-}
-.toast_warning{
-    background-color: var(--warning);
-}
-.toast_danger{
-    background-color: var(--danger);
-}
-
 /*Login Page*/
 .body-login{
     background-color: var(--primary-color);

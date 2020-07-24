@@ -74,9 +74,9 @@ function registerSubmit(e){
 
             if(response['mail']){
                 if(response['exist'] == true){
-                    window.location.href = '../login2.php?mail='+response['mail'];
+                    window.location.href = './login2.php?mail='+response['mail'];
                 } else if(response['exist'] == false){
-                    window.location.href = '../login2.php?registred=true&mail='+response['mail'];
+                    window.location.href = './login2.php?registred=true&mail='+response['mail'];
                 }
             }
             
@@ -151,6 +151,80 @@ function forgetSubmit(e){
         }
     });
 }
+//Formulário para redefinição da senha
+function passSubmit(e){
+    e.preventDefault();
+
+    let mail = e.target[0].value;
+    let pass = e.target[1].value;
+    let confirm = e.target[2].value;
+    let key = e.target[4].value;
+
+    //Remove a marca de inválido quando começa a digitar no campo
+    let inputs = document.querySelectorAll('input');
+    inputs.forEach(el => {
+        el.addEventListener('input', () => {
+            el.classList.remove('invalid');
+        })
+    });
+
+    let helper = document.getElementsByClassName('helper-senha');
+    if(!pass || !confirm){
+        //Valida se os campos estão preenchidos
+        if(!pass){
+            e.target[1].classList = "invalid";
+            helper[0].setAttribute('data-error','Ops! Você esqueceu de preencher este campo');
+        }
+        if(!confirm){
+            e.target[2].classList = "invalid";
+            helper[1].setAttribute('data-error','Ops! Você esqueceu de preencher este campo');
+        }
+    } else if(pass != confirm){
+        //Valida se as senhas conferem
+        e.target[1].classList = "invalid";
+        e.target[2].classList = "invalid";
+        helper[1].setAttribute('data-error','Ops! As senhas devem ser iguais');
+
+    } else {
+
+        pass = hex_sha512(pass);
+
+        let data = {
+            'email' : mail,
+            'pass' : pass,
+            'key' : key
+        }
+    
+        $.ajax({
+            url: './models/login/reset-pass.php',
+            type: "POST",
+            data: {'data': data},
+            cache: false,
+            async: true,
+            success: function(response) {
+                console.log(response);
+                switch (response) {
+                    case 'true':
+                        window.location.href = "./login2.php?mail="+mail+"&pass=true";
+                    break;
+                    case 'error':
+                        toastIt('Ops! Algo inesperado aconteceu','error');
+                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
+                    break;
+                    case 'credentials':
+                        toastIt('Ops! Credenciais inválidas','error');
+                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
+                    break;
+                    default:
+                        toastIt('Ops! Algo inesperado aconteceu','error');
+                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
+                        break;
+                }
+            }
+        });
+    }
+
+}
 
 function toastIt(text,classes){
 
@@ -171,4 +245,13 @@ function setMail(mail){
     field_mail.classList = 'valid';
     M.updateTextFields();
     
+}
+function setKey(key){
+    var input = document.createElement("input");
+
+    input.setAttribute("type", "hidden");
+    input.setAttribute("value", key);
+
+    //append to form element that you want .
+    document.getElementById("pass-form").appendChild(input);
 }
