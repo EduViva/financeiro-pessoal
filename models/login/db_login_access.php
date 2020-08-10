@@ -4,6 +4,10 @@
         
     $db_secure = new mysqli("localhost", "sec_user", "Th7HN87AacBtgRsM", "financeiro_login");
 
+    $email_user = '###';
+    $email_pass = '###';
+    $email_name = '###';
+
     $db_secure->query("SET NAMES 'utf8'");
     $db_secure->query('SET character_set_connection=utf8');
     $db_secure->query('SET character_set_client=utf8');

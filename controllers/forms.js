@@ -203,23 +203,17 @@ function passSubmit(e){
             async: true,
             success: function(response) {
                 console.log(response);
-                switch (response) {
-                    case 'true':
-                        window.location.href = "./login2.php?mail="+mail+"&pass=true";
-                    break;
-                    case 'error':
-                        toastIt('Ops! Algo inesperado aconteceu','error');
-                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
-                    break;
-                    case 'credentials':
-                        toastIt('Ops! Credenciais inválidas','error');
-                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
-                    break;
-                    default:
-                        toastIt('Ops! Algo inesperado aconteceu','error');
-                        setInterval(function(){window.location.href = "./forget-pass.html"},2000);
-                        break;
+                response = JSON.parse(response);
+                console.log(response);
+
+                if(response.success){
+                    window.location.href = "./login2.php?mail="+mail+"&pass=true";
+                    return;
                 }
+                
+                toastIt(response.message,'error');
+                setTimeout(function(){window.location.href = "./forget-pass.html"},2000)
+
             }
         });
     }

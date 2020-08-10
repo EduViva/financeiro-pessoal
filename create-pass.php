@@ -9,6 +9,7 @@
     $email = isset($_GET['user'])?$_GET['user']:null;
 
     if($key && $email){
+        
         $sql = ("SELECT COUNT(*) FROM forget_password WHERE email='" . $email . "' AND chave='" . $key . "'");
         $return = $db_secure->query($sql);
         

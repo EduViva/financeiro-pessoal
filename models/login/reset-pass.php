@@ -9,13 +9,12 @@
         $email = $data['email'];
         $pass = $data['pass'];
         $key = $data['key'];
-        echo "DELETE FROM `forget_password` WHERE email=$email AND chave=$key";
+        
         //Deletando a requisição de senha para não ser usada novamente
         
         if($stmt = $db_secure->prepare("DELETE FROM `forget_password` WHERE email= ? AND chave= ?")){
             $stmt->bind_param('ss', $email, $key);
             $result1 = $stmt->execute();
-            echo $result1;
         } else {
             echo var_dump($db_secure->error_list);
         }
@@ -37,23 +36,22 @@
                 $insert_stmt->bind_param('sss', $pass, $random_salt, $email); 
                 // Execute a query preparada.
                 $result = $insert_stmt->execute();
-                echo $result;
                 
                 if($result){
-                    echo 'true';
+                    $response = array("success" => true);
                 } else {
-                    echo 'error';
+                    $response = array("success" => false, "message" => 'Ops! Algo inesperado aconteceu');
                 }
             } else {
-                echo 'error';
+                $response = array("success" => false, "message" => 'Ops! Algo inesperado aconteceu');
             }
-            
         } else {
-            echo 'credentials';
+            $response = array("success" => false, "message" => 'Ops! Credenciais inválidas');
         }
-        
     } else {
-        echo 'credentials';
+        $response = array("success" => false, "message" => 'Ops! Credenciais inválidas');
     }
+
+    echo json_encode($response);
 
 ?>
