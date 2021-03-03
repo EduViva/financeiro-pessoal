@@ -138,7 +138,7 @@ $(document).ready(function(){
     function get_datas(month, year, user){
     
         month = monthFormat(month)
-    
+        
         let data = {
             'month' : month,
             'year' : year,
@@ -161,10 +161,10 @@ $(document).ready(function(){
                     //Chamar função de mostrar na tela
                     if(response != 'noReturn'){
                         $('.empty_lancs').hide();
-    
+                        console.log(response);
                         response = JSON.parse(response);
-    
-                        let calculado = calculate(response.movimentacoes);
+                        
+                        let calculado = calculate(response.movimentacoes["mes-"+month]);
                         show(response.lancamentos, calculado);
                     }
                 } else {
@@ -412,7 +412,6 @@ function excluir(obj){
     }
 
 }
-
 
 //Formaters
 function stringfy(val){
