@@ -64,8 +64,24 @@
     
         <div class="container-fluid">
             <div class="row">
-                <div class="col s12 m5">
+                <div class="col s12 m6">
                     <div class="card-panel teal white-text" id="card-panel">
+                        <div class="empty_lancs center-align">
+                                        
+                            <div class="row">
+                                <i class="material-icons large">assistant_photo</i>
+                            </div>
+                            <div class="row">
+                                <h5><b>Ainda não há lançamentos neste período!</b></h5>
+                                <h6>É hora de lançar suas movimentações</h6>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col s12 m5 offset-m1">
+                    <div class="card-panel teal white-text" id="top-categories">
                         <div class="empty_lancs center-align">
                                         
                             <div class="row">

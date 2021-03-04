@@ -50,31 +50,17 @@
     $final2 = array();
 
     if($result){
-        //if($mes === "todos"){
-            while ($linha = $result->fetch_assoc()) {
-                $final2['mes-'.$linha['mes']] = array(
-                    'id' => $linha['id_movimentacoes'],
-                    'renda' => $linha['renda'],
-                    'essenciais' => $linha['essenciais'],
-                    'n_essenciais' => $linha['n_essenciais'],
-                    'torrar' => $linha['torrar'],
-                    'investimentos' => $linha['investimentos'],
-                    'caixa' => $linha['caixa'] 
-                );  
-            }
-       /* } else {
-            while ($linha = $result->fetch_assoc()) {
-                $final2 = array(
-                    'id' => $linha['id_movimentacoes'],
-                    'renda' => $linha['renda'],
-                    'essenciais' => $linha['essenciais'],
-                    'n_essenciais' => $linha['n_essenciais'],
-                    'torrar' => $linha['torrar'],
-                    'investimentos' => $linha['investimentos'],
-                    'caixa' => $linha['caixa'] 
-                );  
-            }
-        }*/
+        while ($linha = $result->fetch_assoc()) {
+            $final2['mes-'.$linha['mes']] = array(
+                'id' => $linha['id_movimentacoes'],
+                'renda' => $linha['renda'],
+                'essenciais' => $linha['essenciais'],
+                'n_essenciais' => $linha['n_essenciais'],
+                'torrar' => $linha['torrar'],
+                'investimentos' => $linha['investimentos'],
+                'caixa' => $linha['caixa'] 
+            );  
+        }
     }
 
     //Checando se existe uma linha vazia em movimentações para não retorná-la

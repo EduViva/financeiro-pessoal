@@ -173,7 +173,6 @@ function create_charts(data){
     let movimentacoes = data.movimentacoes;
     let arrayMov = {};
     let somaArray = Array();
-    //console.log(data.movimentacoes["mes-01"]);
 
     for(var key in movimentacoes){
         if(key != 0){    
@@ -184,7 +183,6 @@ function create_charts(data){
                         arrayMov[categoria] = 0;
                     }
                     arrayMov[categoria] += Number(movimentacoes[key][categoria]);
-                    //arrayMov.push([categoriaFormat(categoria), Number(movimentacoes[key][categoria])]);
                 }
             }
 
@@ -196,30 +194,65 @@ function create_charts(data){
     }
 
     somaArray.shift();
+
+    //Gráfico de gastos
+    let columns = {'string':'Categorias', 'number':'Valores'};
+    let options = {'title':'Quanto você gastou este mês',
+                        'width':400,
+                        'height':300};
+    let chartType = "BarChart";
+    let nodeId = 'card-panel';
+    //chartCongif.gastosChart;
+
+    renderChart(columns,options,somaArray,chartType,nodeId);
+
+    //Top categories
+    renderTable(somaArray,'top-categories');
+
+}
+
+//Render charts
+function renderChart(columns, options, rows, chartType, nodeId){
     
-    // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 
-    // Callback that creates and populates a data table,
-    // instantiates the pie chart, passes in the data and
-    // draws it.
     function drawChart() {
-        // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Categorias');
-        data.addColumn('number','Valores');
-        data.addRows(somaArray);
+        
+        for(key in columns){
+            data.addColumn(key, columns[key]);
+        }
 
-        // Set chart options
-        var options = {'title':'Quanto você gastou este mês',
-                        'width':400,
-                        'height':300};
+        data.addRows(rows);
 
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById('card-panel'));
+        var chart = new google.visualization[chartType](document.getElementById(nodeId));
         chart.draw(data, options);
     }
+
+}
+
+//Render Table
+function renderTable(items, nodeId){
+
+    items.sort(function(a,b) {
+        return a[1] - b[1];
+    });
+    items.reverse();
+
+    const tble = items.map(item => [
+    `<ul class="collection collection-movs with-header">`,
+    ` <li class="collection-item">`,
+    `     <h6 class="green-text text-darken-1">${item[0]}</h6>`,
+    `     <span class="right mov_value" id="mov_${item[0]}">${item[1]}</span>`,
+    ` </li>`,
+    ` </ul>`
+    ]);
+
+    const html = tble.join("\n");
+    
+    document.getElementById(nodeId).innerHtml = html;
+
 }
 
 //Logout
