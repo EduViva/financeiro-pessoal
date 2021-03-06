@@ -1,0 +1,26 @@
+{
+
+    "gastos":{
+        "columns" : {"string":"Categorias", "number":"Valores"},
+        "nodeId" : "card-panel",
+        "tiny_screen" : {
+            "chartType" : "ColumnChart",
+            "options" : {
+                "width" : 372,
+                "height" : 398,
+                "legend" : { "position": "top", "maxLines": 3 },
+                "bar": { "groupWidth": "75%" },
+                "isStacked": true
+            }
+        },
+        "medium_screen" : {
+            "chartType" : "BarChart",
+            "options" : {
+                "width" : 550,
+                "height" : 300
+            }
+        }
+        
+    }
+
+}

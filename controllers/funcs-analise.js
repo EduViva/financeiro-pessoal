@@ -98,6 +98,37 @@ $(document).ready(function(){
         get_datas(id_user,month, year);
     }
 
+    //Inicializa e abre os acordeons
+    var elem1 = document.querySelector('.collapsible.expandable');
+    var inst_col1 = M.Collapsible.init(elem1, {
+        accordion: false
+    });
+
+    var elem2 = document.querySelector('.collapsible.expandable.collapse2');
+    var inst_col2 = M.Collapsible.init(elem2, {
+        accordion: false
+    });
+
+    //Mobile e Tablet
+    if($(window).width() < 992){
+        inst_col2.open(0);
+        $('.collapse2 .chevron-header').html('expand_less');
+
+        $('.collapsible').on('click', (e) => {  
+            if(e.currentTarget.children[0].classList[1] == 'active'){
+                $(e.currentTarget.children[0].children[0].children[0]).html('expand_less');
+            } else {
+                $(e.currentTarget.children[0].children[0].children[0]).html('expand_more');
+            }
+        })
+    }
+
+    //Desktop
+    if($(window).width() > 992){
+        inst_col1.open(0);
+        inst_col2.open(0);
+    }
+
 })
 
 function get_datas(id_user,val_month,val_year){
@@ -197,14 +228,40 @@ function create_charts(data){
 
     //Gráfico de gastos
     let columns = {'string':'Categorias', 'number':'Valores'};
-    let options = {'title':'Quanto você gastou este mês',
-                        'width':400,
-                        'height':300};
+    let options = {'width':550,
+                   'height':300};
     let chartType = "BarChart";
     let nodeId = 'card-panel';
     //chartCongif.gastosChart;
+    
+    
+    $.getJSON("controllers/chartsConfig.json", function(response){
+        
+        var data = response.gastos;
 
-    renderChart(columns,options,somaArray,chartType,nodeId);
+        if($(window).width() <= 698){
+            configs = data.tiny_screen;
+        } else {
+            configs = data.medium_screen;
+        }
+
+        console.log(data.medium_screen);
+        console.log(configs.chartType);
+
+        renderChart(
+            data.columns,
+            configs.options,
+            somaArray,
+            configs.chartType,
+            data.nodeId
+        );
+    });
+
+    
+
+
+
+    //renderChart(columns,options,somaArray,chartType,nodeId);
 
     //Top categories
     renderTable(somaArray,'top-categories');
@@ -225,7 +282,7 @@ function renderChart(columns, options, rows, chartType, nodeId){
         }
 
         data.addRows(rows);
-
+        console.log(chartType);
         var chart = new google.visualization[chartType](document.getElementById(nodeId));
         chart.draw(data, options);
     }
@@ -241,17 +298,18 @@ function renderTable(items, nodeId){
     items.reverse();
 
     const tble = items.map(item => [
-    `<ul class="collection collection-movs with-header">`,
     ` <li class="collection-item">`,
-    `     <h6 class="green-text text-darken-1">${item[0]}</h6>`,
-    `     <span class="right mov_value" id="mov_${item[0]}">${item[1]}</span>`,
-    ` </li>`,
-    ` </ul>`
+    `     <h6>${item[0]}</h6>`,
+    `     <div class="right mov_value grey-text" id="mov_${item[0]}">R$ <span class=" grey-text text-darken-3">${item[1]}</span></div>`,
+    ` </li>`
     ]);
 
-    const html = tble.join("\n");
-    
-    document.getElementById(nodeId).innerHtml = html;
+    const start = `<ul class="collection collection-movs with-header">`;
+    const finish = ` </ul>`;
+
+    const html = start + tble.join("\n") + finish;
+
+    document.getElementById(nodeId).innerHTML = html;
 
 }
 

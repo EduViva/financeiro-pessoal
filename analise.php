@@ -64,37 +64,67 @@
     
         <div class="container-fluid">
             <div class="row">
-                <div class="col s12 m6">
-                    <div class="card-panel teal white-text" id="card-panel">
-                        <div class="empty_lancs center-align">
-                                        
-                            <div class="row">
-                                <i class="material-icons large">assistant_photo</i>
-                            </div>
-                            <div class="row">
-                                <h5><b>Ainda não há lançamentos neste período!</b></h5>
-                                <h6>É hora de lançar suas movimentações</h6>
+                
+                <div class="col s12 l6">
+                
+                    <ul class="collapsible expandable collapse">
+                        <li class="collapsible-list">
+
+                            <div class="container-header collapsible-header z-depth-1">
+                                Quanto você gastou este mês
+                                <i class="material-icons chevron-header">expand_more</i>
                             </div>
 
-                        </div>
-                    </div>
+                            <!--Body Quanto você gastou-->
+                            <div class="container-body collapsible-body z-depth-1">
+                                <div class="card-panel white-text" id="card-panel">
+                                    <div class="empty_lancs center-align">
+                                                    
+                                        <div class="row">
+                                            <i class="material-icons large">assistant_photo</i>
+                                        </div>
+                                        <div class="row">
+                                            <h5><b>Ainda não há lançamentos neste período!</b></h5>
+                                            <h6>É hora de lançar suas movimentações</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+                        
+                <div class="col s12 l5 offset-l1">
+                    <ul class="collapsible expandable collapse2">
+                        <li class="collapsible-list">
+
+                            <div class="container-header collapsible-header z-depth-1">
+                                Top categorias este mês
+                                <i class="material-icons chevron-header">expand_more</i>
+                            </div>
+
+                            <!--Body Top Categorias-->
+                            <div class="container-body collapsible-body z-depth-1">
+                                <div class="card-panel white-text" id="top-categories">
+                                    <div class="empty_lancs center-align">
+                                                    
+                                        <div class="row">
+                                            <i class="material-icons large">assistant_photo</i>
+                                        </div>
+                                        <div class="row">
+                                            <h5><b>Ainda não há lançamentos neste período!</b></h5>
+                                            <h6>É hora de lançar suas movimentações</h6>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
                 </div>
 
-                <div class="col s12 m5 offset-m1">
-                    <div class="card-panel teal white-text" id="top-categories">
-                        <div class="empty_lancs center-align">
-                                        
-                            <div class="row">
-                                <i class="material-icons large">assistant_photo</i>
-                            </div>
-                            <div class="row">
-                                <h5><b>Ainda não há lançamentos neste período!</b></h5>
-                                <h6>É hora de lançar suas movimentações</h6>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div> 
 
